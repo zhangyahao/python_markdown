@@ -11,7 +11,7 @@ pycharm设置：如果只是看结果，不需要对pycharm进行专门的设置
 - 汉语支持
      ```python
         import matplotlib.pyplot as plt
-         plt.rcParams['font.sans-serif'] = ['SimHei']
+        plt.rcParams['font.sans-serif'] = ['SimHei']
      ```
 - 负号处理
   ```python
