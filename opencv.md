@@ -107,6 +107,62 @@
         - 效果：填充小空洞，连接邻近物体
         - 应用：填补物体内部空洞，连接断裂部分
         - `cv2.morphologyEx(im2, cv2.MORPH_CLOSE, kernel,iterations=5)`
+    - 二值化  
+      将灰度图像转换为只有黑白两种颜色的图像。
+      ```python
+            retval, dst = cv2.threshold(src, thresh, maxval, type)
+      ```
+      ```python
+         # 1. 二进制阈值
+         ret1, thresh1 = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+      ```   
+      处理逻辑：
+        - 像素值 > 阈值 → 设为最大值（255）
+        - 像素值 ≤ 阈值 → 设为0
+      效果：创建纯粹的黑白二值图像
+      应用：标准的二值分割、轮廓检测
+      ```python
+         # 2. 反二进制阈值
+         ret2, thresh2 = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY_INV)
+      ```   
+      处理逻辑：
+        - 像素值 > 阈值 → 设为0
+        - 像素值 ≤ 阈值 → 设为最大值（255）
+      效果：反转的黑白图像
+      应用：当背景比前景亮时、某些特定检测任务
+      
+      ```python
+         # 3. 截断阈值
+         ret3, thresh3 = cv2.threshold(gray, 127, 255, cv2.THRESH_TRUNC)
+      ``` 
+      处理逻辑：
+        - 像素值 > 阈值 → 设为阈值本身（127）
+        - 像素值 ≤ 阈值 → 保持不变
+      效果：压缩高亮区域，保留暗部细节
+      应用：动态范围压缩、高光抑制
+      
+      ```python
+        # 4. 阈值化为0
+        ret4, thresh4 = cv2.threshold(gray, 127, 255, cv2.THRESH_TOZERO)
+      ```   
+      处理逻辑：
+        - 像素值 > 阈值 → 保持不变
+        - 像素值 ≤ 阈值 → 设为0
+      效果：保留亮部区域，消除暗部
+      应用：提取亮特征、文本增强
+      ```python
+           # 5. 反阈值化为0
+           ret5, thresh5 = cv2.threshold(gray, 127, 255, cv2.THRESH_TOZERO_INV)
+      ```
+      处理逻辑：
+        - 像素值 > 阈值 → 设为0
+        - 像素值 ≤ 阈值 → 保持不变
+      效果：保留暗部区域，消除亮部
+      应用：提取暗特征、阴影分析
+      
+      阈值中**127**一般为经验值，也可以自动计算设置搭配自动计算使用
+      `cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)`
+      `cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)`
     - 图片的其他处理方式
       #### 高斯滤波
         1. 工作原理
@@ -156,5 +212,7 @@
       | **边缘保护重要**  | 中值滤波  |  最佳边缘保护能力  |
       |  **实时处理**   | 高斯滤波  |  效果和速度平衡   |
       | **未知噪声类型**  | 中值滤波  |   通用性最好    |
-
+      
+      #### 注意
+       高斯滤波和均值滤波中参数ksize为**奇数元组**，中值滤波中ksize为**int**
     
