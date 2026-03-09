@@ -28,13 +28,24 @@ pycharm设置：如果只是看结果，不需要对pycharm进行专门的设置
         `plt.xticks()`和`plt.yticks()`
           1. 如果值过长导致文字重叠可以将文字旋转。 `plt.xticks(rotation=45)` 旋转45°
           2. 轴过长或过短导致数据不直观。 `plt.xticks(np.arange(90,210,10))` 表示起始位置90，结束210（不包含该值），步长显示10
+      *  设置x/y轴数据显示范围（坐标轴范围）
+         ```python 
+            import matplotlib.pyplot as plt
+             plt.xlim(0, 10)          # x 轴显示 0 到 10
+             plt.ylim(0, 10)          # y 轴显示 0 到 10
+             # 或者只设置一边
+             plt.xlim(left=0)         # 左边界为 0，右边界自动 
+             plt.ylim(left=0)         # 左边界为 0，右边界自动 
+             plt.xlim(right=100)      # 右边界为 100
+             plt.ylim(right=100)      # 右边界为 100
+         ```
       * 显示图例
         `plt.legend()`
         * 对一些需要展示数据的图展示数据（柱状图/条形图等）
            使用循环对数据点进行标注
             ```
-                  for a,b in zip(x, y1):
-                           plt.text(x=a,y=b,s=b,ha='center',va='bottom')
+                  for x,y in zip(x, y1):
+                           plt.text(x=x,y=y,s=y,ha='center',va='bottom')
             ```
             ha:数据水平展示位置。
             va:数据垂直位置位置

@@ -53,7 +53,7 @@
     * pandas和pandas-stubs**版本必须匹配**
     * 测试过后能提示的版本为 **pandas1.5.** * 和 **pandas-stubs1.5.* **
       。版本超过3之后，pandas-stubs要求python版本3.10以上。但是版本2.*仍然不能提示，目前稍尚未解决
-3. 映射关系 `map`
+3. 映射关系 `map`/ `replace`
    将Series中的数据映射。
 
     ```python
@@ -63,7 +63,8 @@
       act_info_en = {k: v.split()[0] for k, v in act_info.items()}  # 英文映射关系map
       usr_act = usr_act.map(act_info_en)  # 映射结果
     ```
-
+   映射注意：map映射是`类型严格匹配`，必须同类型，在实际使用过程中，遇到了 `np.int64` 匹配 `int` 后数据出现错误的情况
+   大数据的情况下推荐使用`replace`，它不仅避免了类型严格匹配的问题，而且性能通常也优于 map（尤其是对大数据集）
 4. 筛选数据是否存在 `Series.isin`
 5. 数据去重 `Series.unique()`
 6. 去重后类别计数 `Series.nunique()`

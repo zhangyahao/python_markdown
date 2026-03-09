@@ -25,3 +25,4 @@
 
 1. 文件读写时，注意在文件路径上得`\`可能会导致python进行转译，可以在文件目录前加 `r`来避免转译。例如
    `pd.read_csv(r'H:\jupyter\jupyter基本操作\02_pandas\01pandas基本数据结构\data\HR.csv', encoding='GB2312')`
+2. 
