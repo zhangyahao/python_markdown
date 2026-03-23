@@ -87,18 +87,19 @@ pycharm设置：如果只是看结果，不需要对pycharm进行专门的设置
   ```
 - 散点图
 
-# 绘制散点图
-# plt.scatter
-# x,y数据
-# s:点的大小
-# marker:点的标记
-# edgecolors：边缘 轮廓颜色
-# facecolor:填充色
-# label:标签名称  可以显示图例
+ 绘制散点图
+ plt.scatter
+ x,y数据
+ s:点的大小
+ marker:点的标记
+ edgecolors：边缘 轮廓颜色
+ facecolor:填充色
+ label:标签名称  可以显示图例
+ c=y: 将数据中y作为分类类别，同类别得数据设置为一种颜色。
 ```
     plt.scatter(x,y,s=50,edgecolors='red',
            facecolor='white',
-           marker='*',label='sample')
+           marker='*',label='sample',c=y)
 ```
 - 子图
     *  设置画布大小
