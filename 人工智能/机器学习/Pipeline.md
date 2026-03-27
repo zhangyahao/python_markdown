@@ -16,6 +16,18 @@
            from sklearn.pipeline import make_pipeline
            pipe = make_pipeline(StandardScaler(), LogisticRegression())
         ```
+       或者使用创建Pipeline类实现
+       ```python
+            from sklearn.pipeline import Pipeline
+            from sklearn.preprocessing import StandardScaler
+            from sklearn.linear_model import LogisticRegression
+            
+            pipe = Pipeline([
+                ('scaler', StandardScaler()),
+                ('clf', LogisticRegression())
+            ])
+       ```
+       
     2. 使用
        ```python
           pipe.fit(X_train, y_train)

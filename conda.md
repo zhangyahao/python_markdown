@@ -101,7 +101,7 @@ conda config --show pkgs_dirs
    conda env remove --name env_name
    ```
 2. **手动删除残留文件夹**：找到环境路径（通过 `conda env list`），直接删除整个目录。
-3. **清理 Conda 缓存**：[](https://)
+3. **清理 Conda 缓存**：
 
    ```
    conda clean --all
