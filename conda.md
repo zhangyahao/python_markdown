@@ -119,3 +119,4 @@ conda config --show pkgs_dirs
 ```cmd
 conda install -n base conda=24.11.3 --solver=classic
 ```
+或者直接绕过conda直接在**type**选项中选择 `python`或者`system`，下边的直接选择需要使用的环境的目录中的`python.exe`
