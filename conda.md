@@ -5,10 +5,22 @@
 - 使用命令行添加清华镜像源：
 
   ```
-  conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
-  conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-  conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
-  conda config --set show_channel_urls yes
+    conda config --remove-key channels
+   
+   # 2. 添加清华 conda-forge 频道作为首要源
+   conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+   # 3. 添加清华主频道
+   conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+   conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r/
+   conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2/
+   # 4. 可选：添加 PyTorch 等专用频道
+   conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+   # 5. 设置频道优先级为 strict（严格模式）[2†L14-L16][7†L18-L20]
+   conda config --set channel_priority strict
+   # 6. 设置显示频道来源（方便排查问题）[4†L6]
+   conda config --set show_channel_urls yes
+   # 7. 清理索引缓存，使新配置立即生效[3†L5-L6][8†L6-L7]
+   conda clean -i
   ```
 - 可选：添加 PyTorch、Bioconda 等频道。
 - 验证：`conda info` 查看 channel URLs。
@@ -34,8 +46,8 @@
   查看结果：`conda config --show envs_dirs`。
 - **环境变量临时修改**：
 
-  - Linux/macOS：`export CONDA_ENVS_PATH=/new/path`
-  - Windows：`set CONDA_ENVS_PATH=D:\new\path`
+    - Linux/macOS：`export CONDA_ENVS_PATH=/new/path`
+    - Windows：`set CONDA_ENVS_PATH=D:\new\path`
 - 如果要使用Conda目录下得envs文件夹，更改该文件夹得权限
 
 ## 3. 修改包缓存目录（pkgs_dirs）
@@ -119,4 +131,28 @@ conda config --show pkgs_dirs
 ```cmd
 conda install -n base conda=24.11.3 --solver=classic
 ```
+
 或者直接绕过conda直接在**type**选项中选择 `python`或者`system`，下边的直接选择需要使用的环境的目录中的`python.exe`
+
+### 6. conda解析慢
+
+1. 开启Conda自带的libmamba求解器（最直接），Conda 23.9 版本起，libmamba已成为默认求解器。如果版本较旧，可以按以下步骤启用：
+
+    ```cmd
+    # 在base环境中安装libmamba求解器插件
+    conda install --name base conda-libmamba-solver
+    # 将其设置为默认求解器
+    conda config --set solver libmamba
+    ``` 
+
+2. 直接使用Mamba（性能更强）
+Mamba是一个用C++重写的、完全兼容Conda的命令行工具，其依赖解析速度比原生Conda快2-10倍。对于经常需要处理复杂环境或大型项目来说，这是个很好的选择。
+Mamba比libmamba性能更强
+    ```cmd
+    # 在base环境中安装mamba
+    conda install mamba -n base -c conda-forge
+    
+    # 之后，只需将命令中的'conda'替换为'mamba'即可
+    mamba install <package_name>
+    ```
+
