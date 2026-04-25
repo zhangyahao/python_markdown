@@ -92,9 +92,9 @@
 
 ### 4.3 注意力分数计算
 
-text
 
-  ```
+
+  ```text
   Attention(Q, K, V) = softmax( Q·K^T / √d_k ) · V
   ```
 
