@@ -155,4 +155,8 @@ Mamba比libmamba性能更强
     # 之后，只需将命令中的'conda'替换为'mamba'即可
     mamba install <package_name>
     ```
-
+3. **注意**   
+在配置下载源之后，运行命令 `conda config --show channels`,如果存在 **--defaults**，那么在使用mamba或者conda进行install时，conda依然
+会从官方源进行解析，导致解析过程过慢，解决方案：
+    1. 先将默认主配置文件中的 **--defaults**删除
+    2. 在conda安装目录下将配置文件`.condarc`直接删除
