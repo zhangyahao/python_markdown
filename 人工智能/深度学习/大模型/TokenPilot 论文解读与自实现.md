@@ -6,6 +6,7 @@
 ## 1. 论文核心思想与贡献
 
 ### 1.1 背景与问题
+[原论文： TokenPilot: Cache-Efficient Context Management for LLM Agents](https://arxiv.org/abs/2606.17016 )
 
 在长期运行的 LLM Agent 中，每轮交互都会累积执行轨迹（用户输入、思考过程、工具调用及返回），导致上下文长度无界增长，推理成本急剧上升（输入
 Token 可能膨胀至数十万）。现有上下文压缩方法（如剪枝、摘要、分页）虽然减少了 Token 数量，但**破坏了 Prompt 前缀的连续性**
