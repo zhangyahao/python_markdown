@@ -2,9 +2,7 @@
 
 ### 1. 创建张量
 
-python
-
-```
+```python
 import torch
 import numpy as np
 
@@ -28,9 +26,7 @@ torch.IntTensor((1, 3))           # 32位整数
 
 ### 2. 固定值与随机张量
 
-python
-
-```
+```python
 # 全0 / 全1
 zeros = torch.zeros(2, 3)                # shape (2,3)
 ones = torch.ones(2, 3)                  # shape (2,3)
@@ -51,9 +47,7 @@ normal = torch.normal(mean=0.5, std=2.0, size=(3, 3))
 
 ### 3. 类型转换与判断
 
-python
-
-```
+```python
 # 判断是否为张量
 torch.is_tensor(obj)
 
@@ -64,9 +58,7 @@ tensor = tensor.type(torch.int32)        # 同上
 
 ### 4. 张量与 NumPy 互转
 
-python
-
-```
+```python
 # NumPy → Tensor
 ary = np.arange(1, 10)
 tensor = torch.from_numpy(ary)           # 共享内存
@@ -80,9 +72,7 @@ ary = np.array(tensor)                   # 拷贝
 
 ### 5. 形状变换
 
-python
-
-```
+```python
 tensor = torch.arange(1, 10)             # shape (9,)
 tensor.reshape(3, 3)                     # 返回新视图
 torch.reshape(tensor, (3, 3))            # 等价
@@ -90,9 +80,7 @@ torch.reshape(tensor, (3, 3))            # 等价
 
 ### 6. 原地操作（in-place）
 
-python
-
-```
+```python
 a = torch.tensor([200])
 b = torch.tensor([300])
 a.add_(b)        # a += b
@@ -105,9 +93,7 @@ a.sub_(b)        # a -= b
 
 ### 1. 组合 – `cat`
 
-python
-
-```
+```python
 tensor_x = torch.Tensor(2, 2)
 tensor_y = torch.Tensor(2, 2)
 
@@ -120,9 +106,7 @@ torch.cat([tensor_x, tensor_y], dim=1)
 
 ### 2. 拆分 – `chunk` 与 `split`
 
-python
-
-```
+```python
 tensor = torch.Tensor(5, 3)
 
 # 等份拆分，指定份数
@@ -140,9 +124,7 @@ for i in res:
 
 ### 1. `requires_grad` 属性
 
-python
-
-```
+```python
 # 创建时需要梯度的张量
 w = torch.randn(3, 5, requires_grad=True)
 
@@ -153,9 +135,7 @@ print(y.requires_grad)   # True
 
 ### 2. 关闭/打开梯度上下文
 
-python
-
-```
+```python
 # 方式1：with 语句
 with torch.no_grad():
     y = w * 2            # y.requires_grad = False
@@ -174,9 +154,7 @@ torch.set_grad_enabled(True)    # 打开梯度
 
 #### 标量输出
 
-python
-
-```
+```python
 x = torch.tensor([[1.0, 2.0, 3.0]])   # 叶子节点，不需梯度
 w = torch.randn(3, 5, requires_grad=True)
 b = torch.ones(5, requires_grad=True)
@@ -192,9 +170,7 @@ print(b.grad)
 
 #### 非标量输出
 
-python
-
-```
+```python
 z = torch.add(y, b)                   # shape (1,5) 非标量
 g = torch.ones_like(z)                # 外部梯度
 z.backward(gradient=g)                # 传入梯度
@@ -202,9 +178,7 @@ z.backward(gradient=g)                # 传入梯度
 
 ### 4. 梯度清零
 
-python
-
-```
+```python
 optimizer.zero_grad()                 # 优化器方式
 # 或手动
 w.grad.zero_()
@@ -216,9 +190,7 @@ w.grad.zero_()
 
 ### 1. 继承 `torch.nn.Module`
 
-python
-
-```
+```python
 class LinearRegression(torch.nn.Module):
     def __init__(self):
         super().__init__()
@@ -230,9 +202,7 @@ class LinearRegression(torch.nn.Module):
 
 ### 2. 损失函数与优化器
 
-python
-
-```
+```python
 model = LinearRegression()
 criterion = torch.nn.MSELoss()                # 均方误差
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
@@ -240,9 +210,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 ### 3. 典型训练循环
 
-python
-
-```
+```python
 for epoch in range(300):
     pred = model(x)               # 前向传播
     loss = criterion(pred, y)     # 计算损失
@@ -257,9 +225,7 @@ for epoch in range(300):
 
 ### 1. `ModuleList` – 索引式容器
 
-python
-
-```
+```python
 class ModelNet(torch.nn.Module):
     def __init__(self):
         super().__init__()
@@ -276,9 +242,7 @@ class ModelNet(torch.nn.Module):
 
 ### 2. `Sequential` – 顺序容器
 
-python
-
-```
+```python
 self.conv_block = torch.nn.Sequential(
     torch.nn.Conv2d(3, 32, kernel_size=5),
     torch.nn.ReLU(),
@@ -290,9 +254,7 @@ self.conv_block = torch.nn.Sequential(
 
 ## 六、完整卷积网络示例
 
-python
-
-```
+```python
 class CNN(torch.nn.Module):
     def __init__(self):
         super().__init__()
